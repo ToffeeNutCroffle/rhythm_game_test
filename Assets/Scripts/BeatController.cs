@@ -16,7 +16,10 @@ public class BeatController : MonoBehaviour
         Arrows = new GameObject[6];
         Arrows[0]=LeftArrow(13);
         Arrows[1]=LeftArrow(14.5f);
-        Arrows[2]=UpArrow(19);
+        Arrows[2]=UpArrow(20);
+        Arrows[3]=RightArrow(17.5f);
+        Arrows[4]=RightArrow(19);
+        Arrows[5]=DownArrow(14.5f);
     }
 
     // Update is called once per frame
@@ -25,6 +28,9 @@ public class BeatController : MonoBehaviour
         LeftMove(Arrows[0]);
         LeftMove(Arrows[1]);
         UpMove(Arrows[2]);
+        RightMove(Arrows[3]);
+        RightMove(Arrows[4]);
+        DownMove(Arrows[5]);
     }
 
     //left and right scale must bigger then 13

@@ -308,8 +308,9 @@ GameObject:
   m_Component:
   - component: {fileID: 47396400}
   - component: {fileID: 47396399}
+  - component: {fileID: 47396401}
   m_Layer: 0
-  m_Name: MusicManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,6 +344,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47396401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47396398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba4482cafdd0a740b79e26542b7a5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BeatTempo: 192
+  Arrow: {fileID: 8900478161713407638, guid: ab80713cd3d84bc47b117a7ad364a0dd, type: 3}
+  Arrows: []
 --- !u!1 &238653395
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,7 +894,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 49f5530e611096a4fa33d487e26c1c97, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b2b0b5815cbdda548b4358a3cf1cbbac, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2545,7 +2561,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.2
 --- !u!50 &1969341831
 Rigidbody2D:
   serializedVersion: 4

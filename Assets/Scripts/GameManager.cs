@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       Invoke("PlayMusic",3f);
+        //StartCoroutine(Audio(3.8f));
+        theMusic.Play();
     }
 
     // Update is called once per frame
@@ -16,8 +17,10 @@ public class GameManager : MonoBehaviour
     {
        
     }
-    public void PlayMusic()
+
+    public IEnumerator Audio(float time)
     {
-        theMusic.Play(); 
+        yield return new WaitForSecondsRealtime(time);
+        theMusic.Play();
     }
 }
