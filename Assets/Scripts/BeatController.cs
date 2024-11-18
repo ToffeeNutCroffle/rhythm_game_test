@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BeatController : MonoBehaviour
 {
-    public float BeatTempo;
+    public float BeatTempo=128;
     public GameObject Arrow;
     public GameObject[] Arrows;
     
@@ -16,14 +16,13 @@ public class BeatController : MonoBehaviour
         Arrows = new GameObject[2];
         Arrows[0]=LeftArrow();
         StartCoroutine(LeftSpawn(1, 1));
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         LeftMove(Arrows[0]);
-        //LeftMove(Arrows[1]);
+        LeftMove(Arrows[1]);
     }
 
     //left and right scale must bigger then 13

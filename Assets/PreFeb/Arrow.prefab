@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6845866574022871915}
   - component: {fileID: 1247174230335547123}
-  - component: {fileID: 1785011433551721425}
   - component: {fileID: 7469190958553799651}
   - component: {fileID: 6604278726900833112}
   m_Layer: 0
@@ -87,21 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1785011433551721425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8900478161713407638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bba4482cafdd0a740b79e26542b7a5f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BeatTempo: 128
-  Arrow: {fileID: 8900478161713407638}
-  Arrows: []
 --- !u!114 &7469190958553799651
 MonoBehaviour:
   m_ObjectHideFlags: 0
