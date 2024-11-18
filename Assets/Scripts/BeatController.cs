@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BeatController : MonoBehaviour
 {
-    public float BeatTempo=128;
+    public float BeatTempo;
     public GameObject Arrow;
     public GameObject[] Arrows;
     
@@ -13,9 +13,10 @@ public class BeatController : MonoBehaviour
     void Start()
     {
         BeatTempo=BeatTempo/60f;    
-        Arrows = new GameObject[2];
-        Arrows[0]=LeftArrow();
-        StartCoroutine(LeftSpawn(1, 1));
+        Arrows = new GameObject[6];
+        Arrows[0]=LeftArrow(13);
+        Arrows[1]=LeftArrow(14.5f);
+        Arrows[2]=UpArrow(19);
     }
 
     // Update is called once per frame
@@ -23,12 +24,13 @@ public class BeatController : MonoBehaviour
     {
         LeftMove(Arrows[0]);
         LeftMove(Arrows[1]);
+        UpMove(Arrows[2]);
     }
 
     //left and right scale must bigger then 13
-    public GameObject LeftArrow()
+    public GameObject LeftArrow(float scale)
     {
-        GameObject obj = Instantiate(Arrow, new Vector3(-13,5,-1),Quaternion.Euler(0,180,0));
+        GameObject obj = Instantiate(Arrow, new Vector3(0-scale,5,-1),Quaternion.Euler(0,180,0));
         NoteController note = obj.GetComponent<NoteController>();
         note.keyToPressL=KeyCode.A;
         note.keyToPressR=KeyCode.LeftArrow;
@@ -86,9 +88,9 @@ public class BeatController : MonoBehaviour
 
 
     //코루틴 생성
-    public IEnumerator LeftSpawn(int i, float time)
-    {
-        yield return new WaitForSecondsRealtime(time);
-        Arrows[i] = LeftArrow();
-    }
+   // public IEnumerator LeftSpawn(int i, float time)
+   // {
+       // yield return new WaitForSecondsRealtime(time);
+      //  Arrows[i] = LeftArrow();
+    //}
 }
