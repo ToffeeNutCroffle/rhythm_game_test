@@ -8,17 +8,43 @@ public class NoteController : MonoBehaviour
     public KeyCode keyToPressR;
     public KeyCode keyToPressL;
     public Sprite ArrowSP;
-    
-    // Start is called before the first frame update
+    public float BeatTempo;
+
+  
+    public enum Direction
+    {
+        none,
+        left, 
+        right, 
+        up, 
+        down 
+    }
+
+    public Direction state;
+
     void Start()
     {
+        BeatTempo=BeatTempo/60f;  
         this.GetComponent<SpriteRenderer>().sprite = ArrowSP;
     }
 
-    // Update is called once per frame
     void Update()
     {
         this.CheckHit();
+        switch(state)
+        {
+            case Direction.up: 
+            gameObject.transform.position -= new Vector3(0f, BeatTempo*Time.deltaTime ,0f); break;
+            
+            case Direction.right: 
+            gameObject.transform.position -= new Vector3(BeatTempo*Time.deltaTime, 0f ,0f); break;
+
+            case Direction.left: 
+            gameObject.transform.position += new Vector3(BeatTempo*Time.deltaTime, 0f ,0f); break;
+
+            case Direction.down: 
+            gameObject.transform.position += new Vector3(0f, BeatTempo*Time.deltaTime ,0f); break;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

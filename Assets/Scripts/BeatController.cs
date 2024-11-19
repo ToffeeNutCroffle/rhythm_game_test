@@ -7,7 +7,7 @@ public class BeatController : MonoBehaviour
     public float BeatTempo;
     public GameObject Arrow;
     public GameObject[] Arrows;
-    
+   
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +25,12 @@ public class BeatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LeftMove(Arrows[0]);
-        LeftMove(Arrows[1]);
-        UpMove(Arrows[2]);
-        RightMove(Arrows[3]);
-        RightMove(Arrows[4]);
-        DownMove(Arrows[5]);
+        //LeftMove(Arrows[0]);
+       // LeftMove(Arrows[1]);
+        //UpMove(Arrows[2]);
+        //RightMove(Arrows[3]);
+        //RightMove(Arrows[4]);
+        //DownMove(Arrows[5]);
     }
 
     //left and right scale must bigger then 13
@@ -40,6 +40,7 @@ public class BeatController : MonoBehaviour
         NoteController note = obj.GetComponent<NoteController>();
         note.keyToPressL=KeyCode.A;
         note.keyToPressR=KeyCode.LeftArrow;
+        note.state = NoteController.Direction.left;
         return obj;
        
     }
@@ -50,6 +51,7 @@ public class BeatController : MonoBehaviour
         NoteController note = obj.GetComponent<NoteController>();
         note.keyToPressL=KeyCode.D;
         note.keyToPressR=KeyCode.RightArrow;
+        note.state = NoteController.Direction.right;
         return obj;
     }
     //up and down scale must bigger then 11
@@ -59,6 +61,7 @@ public class BeatController : MonoBehaviour
         NoteController note = obj.GetComponent<NoteController>();
         note.keyToPressL=KeyCode.W;
         note.keyToPressR=KeyCode.UpArrow;
+        note.state = NoteController.Direction.up;
         return obj;
     }
 
@@ -68,6 +71,7 @@ public class BeatController : MonoBehaviour
         NoteController note = obj.GetComponent<NoteController>();
         note.keyToPressL=KeyCode.S;
         note.keyToPressR=KeyCode.DownArrow;
+        note.state = NoteController.Direction.down;
         return obj;
     }
 
