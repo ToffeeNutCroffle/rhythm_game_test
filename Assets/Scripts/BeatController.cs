@@ -25,12 +25,6 @@ public class BeatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //LeftMove(Arrows[0]);
-       // LeftMove(Arrows[1]);
-        //UpMove(Arrows[2]);
-        //RightMove(Arrows[3]);
-        //RightMove(Arrows[4]);
-        //DownMove(Arrows[5]);
     }
 
     //left and right scale must bigger then 13
@@ -75,28 +69,7 @@ public class BeatController : MonoBehaviour
         return obj;
     }
 
-    // #Move함수는 Arrow를 움직임
-    public void UpMove(GameObject obj)
-    {
-        obj.transform.position -= new Vector3(0f, BeatTempo*Time.deltaTime ,0f);
-    }
-
-    public void LeftMove(GameObject obj)
-    {
-        obj.transform.position += new Vector3(BeatTempo*Time.deltaTime, 0f ,0f);
-    }
-
-    public void RightMove(GameObject obj)
-    {
-        obj.transform.position -= new Vector3(BeatTempo*Time.deltaTime, 0f ,0f);   
-    }
-
-    public void DownMove(GameObject obj)
-    {
-        obj.transform.position += new Vector3(0f, BeatTempo*Time.deltaTime ,0f);
-    }
-
-
+  
     //코루틴 생성
    // public IEnumerator LeftSpawn(int i, float time)
    // {
