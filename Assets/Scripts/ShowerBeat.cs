@@ -4,29 +4,24 @@ using UnityEngine;
 
 public class ShowerBeat : MonoBehaviour
 {
-    public GameObject[] Arrows;
-    public GameObject note;
-    BeatController[] Beats;
     // Start is called before the first frame update
     void Start()
     {
-        SetNote(4);
-        //Arrows = new GameObject[4];
+        for(int i=0; i<30; i++)
+        {
+            StartCoroutine(LeftSpawn(i));
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Arrows[0].GetComponent<BeatController>().LeftMove();
     }
 
-    public void SetNote(int length)
+       //코루틴 생성
+    public IEnumerator LeftSpawn(float time)
     {
-        Arrows = new GameObject[length];
-        Beats = new BeatController[length];
-        for(int i=0; i<length; i++)
-        {
-            Beats[i] = Arrows[i].GetComponent<BeatController>();
-        }
+        yield return new WaitForSecondsRealtime(time);
+        GameObject LeftArrow = BeatController.instance.PoolLeft.Get();
     }
 }

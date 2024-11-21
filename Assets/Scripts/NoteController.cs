@@ -1,6 +1,7 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class NoteController : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class NoteController : MonoBehaviour
     public Sprite ArrowSP;
     public float BeatTempo;
 
-  
+    public IObjectPool<GameObject> Pool {get; set;}
+
     public enum Direction
     {
         none,
@@ -57,6 +59,9 @@ public class NoteController : MonoBehaviour
         else if(other.tag == "Destroy")
         {
             gameObject.SetActive(false);
+            ResetPosition(state);
+            Pool.Release(this.gameObject);
+            
         }
     }
 
@@ -75,8 +80,21 @@ public class NoteController : MonoBehaviour
             if(canBePressed==true)
             {
                 gameObject.SetActive(false);
+                ResetPosition(state);
+                Pool.Release(this.gameObject);
             }
         }
       
+    }
+
+    public void ResetPosition(Direction dir)
+    {
+        switch(dir)
+        {
+            case Direction.up: gameObject.transform.position=new Vector3(0,18,-1); break;
+            case Direction.right: gameObject.transform.position=new Vector3(13,5,-1); break;
+            case Direction.left: gameObject.transform.position=new Vector3(-13,5,-1); break;
+            case Direction.down: gameObject.transform.position=new Vector3(0,-8,-1); break;
+        } 
     }
 }

@@ -17,10 +17,4 @@ public class GameManager : MonoBehaviour
     {
        
     }
-
-    public IEnumerator Audio(float time)
-    {
-        yield return new WaitForSecondsRealtime(time);
-        theMusic.Play();
-    }
 }

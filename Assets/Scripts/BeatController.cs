@@ -1,30 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class BeatController : MonoBehaviour
 {
-    public float BeatTempo;
     public GameObject Arrow;
-    public GameObject[] Arrows;
-   
+    public static BeatController instance;
+    public int DefaultCapacity = 15;
+    public int MaxPoolSize = 20;
 
-    // Start is called before the first frame update
-    void Start()
+    public IObjectPool<GameObject> PoolLeft{get; set;}
+    
+    private void Awake()
     {
-        BeatTempo=BeatTempo/60f;    
-        Arrows = new GameObject[6];
-        Arrows[0]=LeftArrow(13);
-        Arrows[1]=LeftArrow(14.5f);
-        Arrows[2]=UpArrow(20);
-        Arrows[3]=RightArrow(17.5f);
-        Arrows[4]=RightArrow(19);
-        Arrows[5]=DownArrow(14.5f);
+        if(instance==null) instance=this;
+        else Destroy(this.gameObject);
+
+        Init();
+    }
+    
+    private void Init()
+    {
+        PoolLeft = new ObjectPool<GameObject>(CreateLeft,TakePool,ReturnPool,DestroyObject,
+        true, DefaultCapacity,MaxPoolSize);
+
+        /*PoolRight = new ObjectPool<GameObject>(CreateLeft,TakePool,ReturnPool,DestroyObject,
+        true, DefaultCapacity,MaxPoolSize);*/
+        for(int i=0; i<DefaultCapacity; i++)
+        {
+            NoteController note = CreateLeft().GetComponent<NoteController>();
+            note.keyToPressL=KeyCode.A;
+            note.keyToPressR=KeyCode.LeftArrow;
+            note.state = NoteController.Direction.left;
+            note.Pool.Release(note.gameObject); 
+        }
+    }   
+
+    private GameObject CreateLeft()
+    {
+        GameObject poolgo = Instantiate(Arrow, new Vector3(-13,5,-1),Quaternion.Euler(0,180,0));
+        poolgo.GetComponent<NoteController>().Pool = this.PoolLeft;
+        return poolgo;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void TakePool(GameObject poolgo)
     {
+        poolgo.SetActive(true);
+    }
+
+    private void ReturnPool(GameObject poolgo)
+    {
+        poolgo.SetActive(false);
+    }
+
+    private void DestroyObject(GameObject poolgo)
+    {
+        Destroy(poolgo);
     }
 
     //left and right scale must bigger then 13
@@ -36,7 +69,6 @@ public class BeatController : MonoBehaviour
         note.keyToPressR=KeyCode.LeftArrow;
         note.state = NoteController.Direction.left;
         return obj;
-       
     }
 
     public GameObject RightArrow(float scale)
