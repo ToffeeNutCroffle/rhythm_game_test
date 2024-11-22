@@ -10,7 +10,11 @@ public class BeatController : MonoBehaviour
     public int DefaultCapacity = 15;
     public int MaxPoolSize = 20;
 
+    //4종류의 pool 정의
     public IObjectPool<GameObject> PoolLeft{get; set;}
+    public IObjectPool<GameObject> PoolRight{get; set;}
+    public IObjectPool<GameObject> PoolUp{get; set;}
+    public IObjectPool<GameObject> PoolDown{get; set;}
     
     private void Awake()
     {
@@ -25,15 +29,41 @@ public class BeatController : MonoBehaviour
         PoolLeft = new ObjectPool<GameObject>(CreateLeft,TakePool,ReturnPool,DestroyObject,
         true, DefaultCapacity,MaxPoolSize);
 
-        /*PoolRight = new ObjectPool<GameObject>(CreateLeft,TakePool,ReturnPool,DestroyObject,
-        true, DefaultCapacity,MaxPoolSize);*/
+        PoolRight = new ObjectPool<GameObject>(CreateRight,TakePool,ReturnPool,DestroyObject,
+        true, DefaultCapacity,MaxPoolSize);
+
+        PoolUp = new ObjectPool<GameObject>(CreateUp,TakePool,ReturnPool,DestroyObject,
+        true, DefaultCapacity,MaxPoolSize);
+
+        PoolDown = new ObjectPool<GameObject>(CreateDown,TakePool,ReturnPool,DestroyObject,
+        true, DefaultCapacity,MaxPoolSize);
+
         for(int i=0; i<DefaultCapacity; i++)
         {
-            NoteController note = CreateLeft().GetComponent<NoteController>();
-            note.keyToPressL=KeyCode.A;
-            note.keyToPressR=KeyCode.LeftArrow;
-            note.state = NoteController.Direction.left;
-            note.Pool.Release(note.gameObject); 
+            NoteController noteleft = CreateLeft().GetComponent<NoteController>();
+            noteleft.keyToPressL=KeyCode.A;
+            noteleft.keyToPressR=KeyCode.LeftArrow;
+            noteleft.state = NoteController.Direction.left;
+            noteleft.Pool.Release(noteleft.gameObject); 
+
+            NoteController noteright = CreateRight().GetComponent<NoteController>();
+            noteright.keyToPressL=KeyCode.D;
+            noteright.keyToPressR=KeyCode.RightArrow;
+            noteright.state = NoteController.Direction.right;
+            noteright.Pool.Release(noteright.gameObject);
+
+            NoteController noteup = CreateUp().GetComponent<NoteController>();
+            noteup.keyToPressL=KeyCode.W;
+            noteup.keyToPressR=KeyCode.UpArrow;
+            noteup.state = NoteController.Direction.up;
+            noteup.Pool.Release(noteup.gameObject);
+
+            NoteController notedown = CreateDown().GetComponent<NoteController>();
+            notedown.keyToPressL=KeyCode.S;
+            notedown.keyToPressR=KeyCode.DownArrow;
+            notedown.state = NoteController.Direction.down;
+            notedown.Pool.Release(notedown.gameObject);            
+
         }
     }   
 
@@ -42,8 +72,29 @@ public class BeatController : MonoBehaviour
         GameObject poolgo = Instantiate(Arrow, new Vector3(-13,5,-1),Quaternion.Euler(0,180,0));
         poolgo.GetComponent<NoteController>().Pool = this.PoolLeft;
         return poolgo;
-
     }
+
+    private GameObject CreateRight()
+    {
+        GameObject poolgo = Instantiate(Arrow, new Vector3(13,5,-1),Quaternion.identity);
+        poolgo.GetComponent<NoteController>().Pool = this.PoolRight;
+        return poolgo;
+    }
+
+    private GameObject CreateUp()
+    {
+        GameObject poolgo = Instantiate(Arrow, new Vector3(0,13,-1), Quaternion.Euler(0,0,90));
+        poolgo.GetComponent<NoteController>().Pool = this.PoolUp;
+        return poolgo;
+    }
+
+    private GameObject CreateDown()
+    {
+        GameObject poolgo = Instantiate(Arrow, new Vector3(0,-13,-1), Quaternion.Euler(0,0,270));
+        poolgo.GetComponent<NoteController>().Pool = this.PoolDown;
+        return poolgo;
+    }
+
 
     private void TakePool(GameObject poolgo)
     {
@@ -60,52 +111,5 @@ public class BeatController : MonoBehaviour
         Destroy(poolgo);
     }
 
-    //left and right scale must bigger then 13
-    public GameObject LeftArrow(float scale)
-    {
-        GameObject obj = Instantiate(Arrow, new Vector3(0-scale,5,-1),Quaternion.Euler(0,180,0));
-        NoteController note = obj.GetComponent<NoteController>();
-        note.keyToPressL=KeyCode.A;
-        note.keyToPressR=KeyCode.LeftArrow;
-        note.state = NoteController.Direction.left;
-        return obj;
-    }
-
-    public GameObject RightArrow(float scale)
-    {
-        GameObject obj = Instantiate(Arrow, new Vector3(scale,5,-1),Quaternion.identity);
-        NoteController note = obj.GetComponent<NoteController>();
-        note.keyToPressL=KeyCode.D;
-        note.keyToPressR=KeyCode.RightArrow;
-        note.state = NoteController.Direction.right;
-        return obj;
-    }
-    //up and down scale must bigger then 11
-    public GameObject UpArrow(float scale)
-    {
-        GameObject obj = Instantiate(Arrow, new Vector3(0,scale,-1),Quaternion.Euler(0,0,90));
-        NoteController note = obj.GetComponent<NoteController>();
-        note.keyToPressL=KeyCode.W;
-        note.keyToPressR=KeyCode.UpArrow;
-        note.state = NoteController.Direction.up;
-        return obj;
-    }
-
-    public GameObject DownArrow(float scale)
-    {
-        GameObject obj = Instantiate(Arrow, new Vector3(0,0-scale,-1),Quaternion.Euler(0,0,270));
-        NoteController note = obj.GetComponent<NoteController>();
-        note.keyToPressL=KeyCode.S;
-        note.keyToPressR=KeyCode.DownArrow;
-        note.state = NoteController.Direction.down;
-        return obj;
-    }
-
-  
-    //코루틴 생성
-   // public IEnumerator LeftSpawn(int i, float time)
-   // {
-       // yield return new WaitForSecondsRealtime(time);
-      //  Arrows[i] = LeftArrow();
-    //}
+   
 }
